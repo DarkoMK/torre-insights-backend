@@ -19,4 +19,5 @@ use Illuminate\Support\Facades\Route;
 //    return $request->user();
 //});
 
-Route::get('/insights', [InsightsController::class, 'index']);
+Route::get('/insights/{org}', [InsightsController::class, 'insights']);
+Route::get('/organizations/{org}', [InsightsController::class, 'organizations']);
