@@ -36,4 +36,16 @@ class TorreAPI
         }
         return [];
     }
+
+    public function organizations($q = ''): array
+    {
+        $url = 'https://bio.torre.co/api/organizations';
+        $response = Http::get($url, [
+            'q' => $q
+        ]);
+        if ($response->successful()) {
+            return $response->json();
+        }
+        return [];
+    }
 }

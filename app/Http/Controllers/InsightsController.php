@@ -9,8 +9,9 @@ class InsightsController extends Controller
     public function index()
     {
         $torre = new TorreAPI();
-        $people = $torre->people();
-        return $people;
+        return $torre->organizations('Torre');
+//        $people = $torre->people();
+//        return $people;
 //        $res = [];
 //        foreach ($people['results'] as $person) {
 //            $res[] = trim(explode(',', $person['locationName'])[1]);
