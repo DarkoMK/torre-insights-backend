@@ -2,12 +2,19 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Http\Torre\TorreAPI;
 
 class InsightsController extends Controller
 {
     public function index()
     {
-        return 'works';
+        $torre = new TorreAPI();
+        $people = $torre->people();
+        return $people;
+//        $res = [];
+//        foreach ($people['results'] as $person) {
+//            $res[] = trim(explode(',', $person['locationName'])[1]);
+//        }
+//        return $res;
     }
 }
