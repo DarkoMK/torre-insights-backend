@@ -16,11 +16,14 @@ class InsightsController extends Controller
         $this->geocoder = new GeoCode();
     }
 
-    public function insights($org)
+    public function insights($org): \Illuminate\Http\JsonResponse
     {
         $people = $this->torre->people($org);
         return response()->json([
             'total' => $people['total'],
+            'remoter' => $people['aggregators']['remoter'],
+            'skill' => $people['aggregators']['skill'],
+            'compensationrange' => $people['aggregators']['compensationrange'],
             'map' => $this->mapData($people),
             'success' => true
         ]);
@@ -49,7 +52,7 @@ class InsightsController extends Controller
             $geocoded_address = $this->geocoder->GeoCodeAddress($location);
             if (!empty($geocoded_address)) {
                 $map[] = [
-                    'name' => $location . ': ' . $count,
+                    'name' => $location . ': ' . $count . ' profile(s) associated',
                     'center' => [$geocoded_address['lat'], $geocoded_address['lng']],
                     'radius' => $count
                 ];
