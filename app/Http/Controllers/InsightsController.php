@@ -16,10 +16,11 @@ class InsightsController extends Controller
         $this->geocoder = new GeoCode();
     }
 
-    public function insights($org): \Illuminate\Http\JsonResponse
+    public function insights($org)
     {
         $people = $this->torre->people($org);
         return response()->json([
+            'total' => $people['total'],
             'map' => $this->mapData($people),
             'success' => true
         ]);
