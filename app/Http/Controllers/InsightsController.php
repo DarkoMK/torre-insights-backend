@@ -21,7 +21,7 @@ class InsightsController extends Controller
         $people = $this->torre->people($org);
         return response()->json([
             'total' => $people['total'],
-            'remoter' => $people['aggregators']['remoter'],
+            'remoter' => $this->formatRemoterData($people['aggregators']['remoter']),
             'skill' => $people['aggregators']['skill'],
             'compensationrange' => $people['aggregators']['compensationrange'],
             'map' => $this->mapData($people),
@@ -60,5 +60,19 @@ class InsightsController extends Controller
         }
 
         return $map;
+    }
+
+    private function formatRemoterData($items): array
+    {
+        $labels = [];
+        $data = [];
+        foreach ($items as $item) {
+            $labels[] = 'Said ' . $item['value'];
+            $data[] = $item['total'];
+        }
+        return [
+            'labels' => $labels,
+            'data' => $data,
+        ];
     }
 }
