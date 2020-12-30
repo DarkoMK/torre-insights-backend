@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\GeoCode\GeoCode;
 use App\Http\Torre\TorreAPI;
+use App\Models\History;
 
 class InsightsController extends Controller
 {
@@ -19,14 +20,17 @@ class InsightsController extends Controller
     public function insights($org): \Illuminate\Http\JsonResponse
     {
         $people = $this->torre->people($org);
-        return response()->json([
+        $data = [
+            'org' => $org,
             'total' => $people['total'],
             'remoter' => $this->formatRemoterData($people['aggregators']['remoter']),
             'skill' => $this->formatGenericData($people['aggregators']['skill']),
             'compensationrange' => $this->formatGenericData($people['aggregators']['compensationrange']),
             'map' => $this->mapData($people),
             'success' => true
-        ]);
+        ];
+        History::create($data);
+        return response()->json($data);
     }
 
     public function organizations($org): array
