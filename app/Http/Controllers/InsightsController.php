@@ -22,7 +22,7 @@ class InsightsController extends Controller
         return response()->json([
             'total' => $people['total'],
             'remoter' => $this->formatRemoterData($people['aggregators']['remoter']),
-            'skill' => $people['aggregators']['skill'],
+            'skill' => $this->formatGenericData($people['aggregators']['skill']),
             'compensationrange' => $this->formatGenericData($people['aggregators']['compensationrange']),
             'map' => $this->mapData($people),
             'success' => true
