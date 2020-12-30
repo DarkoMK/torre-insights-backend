@@ -48,4 +48,14 @@ class TorreAPI
         }
         return [];
     }
+
+    public function bio($username): array
+    {
+        $url = 'https://bio.torre.co/api/bios/' . $username;
+        $response = Http::get($url, []);
+        if ($response->successful()) {
+            return $response->json();
+        }
+        return [];
+    }
 }
